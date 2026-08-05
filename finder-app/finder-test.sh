@@ -47,7 +47,7 @@ then
 	fi
 fi
 #make clean
-make 
+#make 
 
 for i in $( seq 1 $NUMFILES)
 do
