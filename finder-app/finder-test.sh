@@ -1,3 +1,4 @@
+#!/bin/sh
 # Author: Siddhant Jajoo
 
 set -e
