@@ -23,6 +23,8 @@ fi
 
 mkdir -p ${OUTDIR}
 
+echo "FINDER_APP_DIR is : ${FINDER_APP_DIR}"
+
 cd "$OUTDIR"
 if [ ! -d "${OUTDIR}/linux-stable" ]; then
     #Clone only if the repository does not exist.
@@ -84,6 +86,7 @@ ${CROSS_COMPILE}readelf -a bin/busybox | grep -i "program interpreter"
 ${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library"
 
 # Add library dependencies to rootfs
+echo "Adding dependencies to root fs. SYSROOT=$(${CROSS_COMPILE}gcc --print-sysroot)}"
 export SYSROOT=$(${CROSS_COMPILE}gcc --print-sysroot)
 cp -a $SYSROOT/lib/ld-linux-aarch64.so.1 lib
 cp -a $SYSROOT/lib64/libc.so.6 lib64
@@ -99,7 +102,9 @@ sudo mknod -m 600 dev/console c 5 1
 # TODO: Clean and build the writer utility
 echo "Changing dir to ${FINDER_APP_DIR} to clean and make the writer utility."
 cd $FINDER_APP_DIR
-make clean
+if [ -f ${FINDER_APP_DIR}/writer ]; then
+    make clean
+fi
 make CROSS_COMPILE
 
 # TODO: Copy the finder related scripts and executables to the /home directory
