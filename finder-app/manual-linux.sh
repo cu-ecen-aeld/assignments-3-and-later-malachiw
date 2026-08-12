@@ -97,20 +97,20 @@ sudo mknod -m 666 dev/null c 1 3
 sudo mknod -m 600 dev/console c 5 1
 
 # TODO: Clean and build the writer utility
-echo "Changing dir to ${FINDER_APP} to clean and make the writer utility."
-cd $FINDER_APP 
+echo "Changing dir to ${FINDER_APP_DIR} to clean and make the writer utility."
+cd $FINDER_APP_DIR
 make clean
 make CROSS_COMPILE
 
 # TODO: Copy the finder related scripts and executables to the /home directory
 # on the target rootfs
 cd ${OUTDIR}/rootfs
-cp -a $FINDER_APP/writer home
-cp -a $FINDER_APP/finder.sh home
-cp -a $FINDER_APP/manual-linux.sh home
-cp -a $FINDER_APP/start-qemu-app.sh home
-cp -a $FINDER_APP/autorun-qemu.sh home
-cp -a $FINDER_APP/finder-test.sh home
+cp -a $FINDER_APP_DIR/writer home
+cp -a $FINDER_APP_DIR/finder.sh home
+cp -a $FINDER_APP_DIR/manual-linux.sh home
+cp -a $FINDER_APP_DIR/start-qemu-app.sh home
+cp -a $FINDER_APP_DIR/autorun-qemu.sh home
+cp -a $FINDER_APP_DIR/finder-test.sh home
 echo "malachiw" > home/conf/username.txt
 echo "assignment3" > conf/assignment.txt
 
