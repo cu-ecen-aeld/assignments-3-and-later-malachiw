@@ -20,13 +20,13 @@ void* threadfunc(void* thread_param)
     int lock_ret;
     thread_func_args->thread_id = pthread_self();
 
-    usleep(thread_func_args->wait_ms);
+    usleep(thread_func_args->wait_ms*1000);
     lock_ret = pthread_mutex_lock(thread_func_args->mutex);
     if(lock_ret){
         perror("pthread_mutex_lock");
         thread_func_args->thread_complete_success = false;
     } else {
-        usleep(thread_func_args->release_ms);
+        usleep(thread_func_args->release_ms*1000);
         pthread_mutex_unlock(thread_func_args->mutex);
         thread_func_args->thread_complete_success = true;
     }
